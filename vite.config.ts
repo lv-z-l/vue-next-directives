@@ -37,11 +37,22 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
+    outDir: 'lib',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true
       }
+    },
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      formats: ['es'],
+      // the proper extensions will be added
+      fileName: 'index'
+    },
+    rollupOptions: {
+      // 确保外部化处理那些你不想打包进库的依赖
+      external: ['vue']
     }
   }
 })
