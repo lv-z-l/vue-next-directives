@@ -43,13 +43,5 @@ export default defineConfig({
         drop_debugger: true
       }
     }
-  },
-  // 全局样式
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "@/assets/style/main.scss";'
-      }
-    }
   }
 })

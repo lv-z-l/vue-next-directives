@@ -359,7 +359,5 @@ function handleDragEnd(e: any) {
 </script>
 
 <style lang="scss">
-span {
-  background-color: $injectedColor;
-}
+@import '../assets/style/main.scss';
 </style>
