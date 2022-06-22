@@ -1,0 +1,4 @@
+# eslint 忽略检查 (根据需要自行添加)
+node_modules
+dist
+.eslintrc.js
