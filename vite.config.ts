@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import dts from 'vite-plugin-dts'
 const path = require('path')
 import viteCompression from 'vite-plugin-compression'
 
@@ -11,6 +12,7 @@ export default defineConfig({
     vue({
       reactivityTransform: true
     }),
+    dts(),
     vueJsx(),
     // gzip压缩 生产环境生成 .gz 文件
     viteCompression({
