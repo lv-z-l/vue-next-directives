@@ -61,7 +61,6 @@
 import { VertifyType } from './types/props'
 import { ref, watchEffect } from 'vue'
 import { getRandomNumberByRange, sum, square } from './utils/index'
-const name = 'SliderVertify'
 const {
   width = 320,
   height = 160,
