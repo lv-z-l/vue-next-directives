@@ -1,9 +1,11 @@
 import { App } from 'vue'
 import { ImageManager, STATE } from './ImageManager'
 import { LazyOption } from './types/Lazy'
+import defaultImg from '../../assets/images/undraw_snap_the_moment_re_88cu.svg'
+import defaultError from '../../assets/images/undraw_fixing_bugs_w7gi.svg'
 
-const DEFAULT_LOADING = ''
-const DEFAULT_ERROR = ''
+const DEFAULT_LOADING = defaultImg
+const DEFAULT_ERROR = defaultError
 
 class Lazy {
   imageManagerQuene: ImageManager[]

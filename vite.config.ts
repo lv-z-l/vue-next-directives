@@ -39,26 +39,34 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
+    assetsDir: 'lib/assets',
     outDir: 'lib',
+    cssCodeSplit: true,
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true
       }
     },
-    // lib: {
-    //   entry: path.resolve(__dirname, 'src/index.ts'),
-    //   formats: ['es'],
-    //   // the proper extensions will be added
-    //   fileName: 'index'
-    // },
+    lib: {
+      entry: '',
+      formats: ['es']
+    },
     rollupOptions: {
       input: {
         lazy: path.resolve(__dirname, 'src/directives/lazy/Lazy.ts'),
-        loading: path.resolve(__dirname, 'src/directives/loading/vLoading.ts')
+        loading: path.resolve(__dirname, 'src/directives/loading/vLoading.ts'),
+        index: path.resolve(__dirname, 'src/index.ts')
       },
       output: {
-        entryFileNames: 'entry-[name].js'
+        format: 'esm',
+        assetFileNames: 'assets/[name].css',
+        entryFileNames: chunkinfo => {
+          if (chunkinfo.facadeModuleId.endsWith('src/index.ts')) {
+            return 'index.js'
+          }
+          return 'directives/[name]/index.js'
+        }
       },
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue']

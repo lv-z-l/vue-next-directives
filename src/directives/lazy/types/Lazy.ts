@@ -8,6 +8,6 @@ export interface imageManagerOption {
 
 export interface LazyOption {
   name: string
-  loading: string
-  error: string
+  loading?: string
+  error?: string
 }
