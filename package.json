@@ -19,10 +19,19 @@
     "/lib",
     "README.md"
   ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lv-z-l/vue-next-directives.git"
+  },
   "keywords": [
-    "vue3滑块验证",
-    "vue3拖动滑块验证",
-    "滑块验证"
+    "vue3指令",
+    "vue3自定义指令",
+    "图片懒加载",
+    "loading",
+    "加载中",
+    "lazy",
+    "loading directive",
+    "lazy directive"
   ],
   "dependencies": {},
   "peerDependencies": {
@@ -59,7 +68,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
-      "yarn lint",
       "yarn prettier",
       "git add"
     ]

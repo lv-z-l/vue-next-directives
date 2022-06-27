@@ -75,10 +75,12 @@ const img4 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=a
 ```
 3. 效果
 
-![](https://s3.bmp.ovh/imgs/2022/06/27/9c0c41c7833b1972.gif)
+- ![](https://s3.bmp.ovh/imgs/2022/06/27/9c0c41c7833b1972.gif)
 
-network 中图片请求只有一次，因为四张图片url都一样，因此后面都读缓存
+- network 中图片请求只有一次，因为四张图片url都一样，因此后面都读缓存
+
 [![jVtMAe.png](https://s1.ax1x.com/2022/06/27/jVtMAe.png)](https://imgtu.com/i/jVtMAe)
+
 ### 按需使用
 
 1. 简单粗暴
