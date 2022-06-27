@@ -46,13 +46,20 @@ export default defineConfig({
         drop_debugger: true
       }
     },
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
-      // the proper extensions will be added
-      fileName: 'index'
-    },
+    // lib: {
+    //   entry: path.resolve(__dirname, 'src/index.ts'),
+    //   formats: ['es'],
+    //   // the proper extensions will be added
+    //   fileName: 'index'
+    // },
     rollupOptions: {
+      input: {
+        lazy: path.resolve(__dirname, 'src/directives/lazy/Lazy.ts'),
+        loading: path.resolve(__dirname, 'src/directives/loading/vLoading.ts')
+      },
+      output: {
+        entryFileNames: 'entry-[name].js'
+      },
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue']
     }

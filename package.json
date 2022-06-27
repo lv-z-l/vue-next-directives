@@ -1,6 +1,6 @@
 {
-  "name": "vue-next-slider-vertify",
-  "version": "1.0.4",
+  "name": "vue-next-directives",
+  "version": "1.0.0",
   "main": "lib/index.es.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
