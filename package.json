@@ -1,6 +1,6 @@
 {
   "name": "vue-next-directives",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -51,10 +51,6 @@
     "vite-plugin-dts": "^1.2.0",
     "vue": "^3.2.25",
     "vue-tsc": "^0.34.7"
-  },
-  "publishConfig": {
-    "registry": "",
-    "access": "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"
   },
   "husky": {
     "hooks": {
