@@ -95,6 +95,44 @@ createApp(App).use(Lazy, { name: 'lazy' })
 
 ```
 
+2. 借助 vite-plugin-importer 插件
+
+- 安装插件
+
+npm install vite-plugin-importer -D
+
+or
+
+yarn add vite-plugin-importer -D
+
+- vite.config.js
+
+```js
+
+import usePluginImport from 'vite-plugin-importer'
+
+export default defineConfig({
+  // ...
+  plugin: [
+    // ...
+    usePluginImport({
+      libraryName: 'vue-next-directives',
+      customName: (name, file) => `vue-next-directives/lib/directives/${name.toLowerCase()}/index`,
+      style: name => {
+        const needcss = ['loading']
+        const names = name.split('/')
+        const fileName = names[names.length - 2]
+        return needcss.includes(fileName) ? `vue-next-directives/lib/assets/${fileName}.css` : ''
+      }
+    })
+    // ...
+  ]
+  // ...
+})
+
+
+```
+
 
 
 
