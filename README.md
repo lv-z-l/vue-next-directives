@@ -1,4 +1,4 @@
-# vue-next-directives
+# vue-next-directive
 
 ## 介绍
 
@@ -13,8 +13,8 @@ vue3
 
 ## 安装
 
-- yarn add vue-next-directives
-- npm i vue-next-directives
+- yarn add vue-next-directive
+- npm i vue-next-directive
 - ...
 
 ## 使用说明
@@ -25,7 +25,7 @@ vue3
 
 ```js
 // ...
-import v3Directives from 'vue-next-directives'
+import v3Directives from 'vue-next-directive'
 // ...
 createApp(App).use(v3Directives)
 // ...
@@ -63,7 +63,7 @@ const img4 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=a
 </script>
 
 <style lang="scss">
-@import url('vue-next-directives/lib/assets/loading.css');
+@import url('vue-next-directive/lib/assets/loading.css');
 
 .aaa {
   height: 500px;
@@ -86,11 +86,11 @@ const img4 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=a
 1. 简单粗暴
 ```js
 // loading
-import Loading from 'vue-next-directives/lib/directives/loading/index'
+import Loading from 'vue-next-directive/lib/directives/loading/index'
 createApp(App)..directive('loading', Loading)
 
 // lazy
-import Lazy from 'vue-next-directives/lib/directives/lazy/index'
+import Lazy from 'vue-next-directive/lib/directives/lazy/index'
 createApp(App).use(Lazy, { name: 'lazy' })
 
 ```
@@ -116,13 +116,13 @@ export default defineConfig({
   plugin: [
     // ...
     usePluginImport({
-      libraryName: 'vue-next-directives',
-      customName: (name, file) => `vue-next-directives/lib/directives/${name.toLowerCase()}/index`,
+      libraryName: 'vue-next-directive',
+      customName: (name, file) => `vue-next-directive/lib/directives/${name.toLowerCase()}/index`,
       style: name => {
         const needcss = ['loading']
         const names = name.split('/')
         const fileName = names[names.length - 2]
-        return needcss.includes(fileName) ? `vue-next-directives/lib/assets/${fileName}.css` : ''
+        return needcss.includes(fileName) ? `vue-next-directive/lib/assets/${fileName}.css` : ''
       }
     })
     // ...

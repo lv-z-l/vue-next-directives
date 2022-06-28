@@ -1,6 +1,6 @@
 {
-  "name": "vue-next-directives",
-  "version": "1.0.2",
+  "name": "vue-next-directive",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
