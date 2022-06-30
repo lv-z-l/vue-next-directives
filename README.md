@@ -99,11 +99,9 @@ createApp(App).use(Lazy, { name: 'lazy' })
 
 - 安装插件
 
-npm install vite-plugin-importer -D
+  - npm install vite-plugin-importer -D
 
-or
-
-yarn add vite-plugin-importer -D
+  - yarn add vite-plugin-importer -D
 
 - vite.config.js
 
@@ -123,13 +121,23 @@ export default defineConfig({
         const names = name.split('/')
         const fileName = names[names.length - 2]
         return needcss.includes(fileName) ? `vue-next-directive/lib/assets/${fileName}.css` : ''
-      }
+      }, // 会自动引入组件的css
+      // style: () => '' 不会自动引入组件的css
     })
     // ...
   ]
   // ...
 })
 
+```
+
+- 然后你就可以这样使用
+
+```js
+
+import { Loading } from 'vue-next-directive'
+
+import { Lazy } from 'vue-next-directive'
 
 ```
 
