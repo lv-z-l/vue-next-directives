@@ -1,6 +1,6 @@
 {
   "name": "vue-next-directive",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,6 +31,11 @@
     "loading",
     "加载中",
     "lazy",
+    "debounce",
+    "input搜索防抖",
+    "处理中文输入",
+    "compositionstart",
+    "compositionend",
     "loading directive",
     "lazy directive"
   ],

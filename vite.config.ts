@@ -56,6 +56,7 @@ export default defineConfig({
       input: {
         lazy: path.resolve(__dirname, 'src/directives/lazy/Lazy.ts'),
         loading: path.resolve(__dirname, 'src/directives/loading/vLoading.ts'),
+        debounceInput: path.resolve(__dirname, 'src/directives/debounceInput/debounceInput.ts'),
         index: path.resolve(__dirname, 'src/index.ts')
       },
       output: {
@@ -66,6 +67,9 @@ export default defineConfig({
             return 'index.js'
           }
           return 'directives/[name]/index.js'
+        },
+        chunkFileNames: () => {
+          return 'util.js'
         }
       },
       // 确保外部化处理那些你不想打包进库的依赖

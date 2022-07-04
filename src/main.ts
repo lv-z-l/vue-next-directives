@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
-import vLoading from './directives/loading/vLoading'
 import App from './App.vue'
-import Lazyplugin from './directives/lazy/Lazy'
+import inputs from './directives/debounceInput/debounceInput'
 
-createApp(App).use(Lazyplugin, { name: 'lazy' }).directive('loading', vLoading).mount('#app')
+createApp(App).directive('inputs', inputs).mount('#app')

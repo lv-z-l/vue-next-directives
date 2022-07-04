@@ -6,10 +6,7 @@
 
 - loading （加载中...)
 - lazy （图片懒加载）
-
-## 软件架构
-
-vue3
+- debounceInput (防抖输入指令，处理中文输入)
 
 ## 安装
 
@@ -19,7 +16,7 @@ vue3
 
 ## 使用说明
 
-### 简单使用
+### 简单使用（全局引用）
 
 1. 项目入口文件
 
@@ -30,56 +27,7 @@ import v3Directives from 'vue-next-directive'
 createApp(App).use(v3Directives)
 // ...
 ```
-2. 单文件组件(.vue)
-
-```vue
-<template>
-  <div v-loading:loading.doublesize="loading" style="height: 300px"></div>
-  <div>
-    <div class="aaa">
-      <img v-lazy="img1" src="" alt="" />
-    </div>
-    <div class="aaa">
-      <img v-lazy="img2" src="" alt="" />
-    </div>
-    <div class="aaa">
-      <img v-lazy="img3" src="" alt="" />
-    </div>
-    <div class="aaa">
-      <img v-lazy="img4" src="" alt="" />
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const loading = ref(true)
-
-const img1 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
-const img2 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
-const img3 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
-const img4 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
-</script>
-
-<style lang="scss">
-@import url('vue-next-directive/lib/assets/loading.css');
-
-.aaa {
-  height: 500px;
-  width: 100%;
-  margin: 300px 0;
-}
-</style>
-
-```
-3. 效果
-
-- ![](https://s3.bmp.ovh/imgs/2022/06/27/9c0c41c7833b1972.gif)
-
-- network 中图片请求只有一次，因为四张图片url都一样，因此后面都读缓存
-
-[![jVtMAe.png](https://s1.ax1x.com/2022/06/27/jVtMAe.png)](https://imgtu.com/i/jVtMAe)
+然后就可以在任何一个vue组件中使用
 
 ### 按需使用
 
@@ -140,6 +88,93 @@ import { Loading } from 'vue-next-directive'
 import { Lazy } from 'vue-next-directive'
 
 ```
+## 效果
+
+### loading, lazy
+
+```vue
+<template>
+  <div v-loading:loading.doublesize="loading" style="height: 300px"></div>
+  <div>
+    <div class="aaa">
+      <img v-lazy="img1" src="" alt="" />
+    </div>
+    <div class="aaa">
+      <img v-lazy="img2" src="" alt="" />
+    </div>
+    <div class="aaa">
+      <img v-lazy="img3" src="" alt="" />
+    </div>
+    <div class="aaa">
+      <img v-lazy="img4" src="" alt="" />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const loading = ref(true)
+
+const img1 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
+const img2 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
+const img3 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
+const img4 = ref('https://img0.baidu.com/it/u=1674332027,2650649314&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=377')
+</script>
+
+<style lang="scss">
+@import url('vue-next-directive/lib/assets/loading.css');
+
+.aaa {
+  height: 500px;
+  width: 100%;
+  margin: 300px 0;
+}
+</style>
+
+```
+
+![](https://s3.bmp.ovh/imgs/2022/06/27/9c0c41c7833b1972.gif)
+
+network 中图片请求只有一次，因为四张图片url都一样，因此后面都读缓存
+
+[![jVtMAe.png](https://s1.ax1x.com/2022/06/27/jVtMAe.png)](https://imgtu.com/i/jVtMAe)
+
+### debounceInput
+
+```vue
+
+<template>
+  <input v-model="val" v-debounceInput:600="onInput" />
+  <!-- <input v-model="val" @input="onInput" /> 普通的input -->
+  <ul>
+    <li v-for="item in showArr" :key="item">{{ item }}</li>
+  </ul>
+</template>
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+
+const val = ref('')
+
+const arr = ref(['Cabbage', 'Turnip', 'Radish', 'Carrot', '哈哈', '呵呵', '嘻嘻'])
+
+const showArr = ref([])
+showArr.value.push(...arr.value)
+function onInput(e: Event) {
+  console.log('onInput function call', 'val:' + val.value)
+  showArr.value = arr.value.filter(item => item.toLowerCase().includes(val.value))
+}
+</script>
+
+```
+- 普通的input效果：
+
+  ![](https://s3.bmp.ovh/imgs/2022/07/04/387664f0f7bee58f.gif)
+
+- 使用防抖指令效果：
+
+  ![](https://s3.bmp.ovh/imgs/2022/07/04/5724f2b8947feaff.gif)
+
 
 
 
@@ -162,7 +197,7 @@ import { Lazy } from 'vue-next-directive'
 
 ```js
 // ...
-import Lazyplugin from './directives/lazy/Lazy'
+import { Lazyplugin } from 'vue-next-directive'
 // ...
 createApp(App).use(Lazyplugin, { name: 'lazy', loading: '默认不加载时显示的图片链接', error: '加载失败时显示的图片链接' })
 
@@ -176,5 +211,9 @@ export interface LazyOption {
 }
 
 ```
+
+### debounceInput
+
+- v-debounceInput:600="onInput" 600将作为防抖时长（默认600，单位ms），onInput是input事件执行函数
 
 ## 参考
