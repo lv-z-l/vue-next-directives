@@ -1,16 +1,30 @@
+// @ts-nocheck
 import { debounce } from '../../utils/index'
 function compositionStart(event: CompositionEvent) {
-  // @ts-ignore
   event.target.composing = true
 }
 function compositionEnd(e: CompositionEvent) {
-  // @ts-ignore
   e.target.composing = false
   const event = new Event('input', { bubbles: true })
   e.target?.dispatchEvent(event)
 }
 
 let inputFunction: (event: Event) => {}
+
+function findInputFromEl(el: HTMLElement): HTMLElement | null {
+  const quene: HTMLElement[] = []
+  quene.push(el)
+  while (quene.length > 0) {
+    const current = quene.shift()
+    if (current?.tagName === 'INPUT') {
+      return current
+    }
+    if (current?.childNodes) {
+      quene.push(...current.childNodes)
+    }
+  }
+  return null
+}
 
 export default {
   mounted(el: HTMLElement, binding: any) {
@@ -20,15 +34,20 @@ export default {
         timeout = Number(binding.arg)
       }
       inputFunction = debounce(binding.value, timeout)
-      el.addEventListener('input', inputFunction)
-      el.addEventListener('compositionstart', compositionStart)
-      el.addEventListener('compositionend', compositionEnd)
+      const inputDom = findInputFromEl(el)
+      el.inputDom = inputDom
+      if (inputDom) {
+        inputDom.addEventListener('input', inputFunction)
+        inputDom.addEventListener('compositionstart', compositionStart)
+        inputDom.addEventListener('compositionend', compositionEnd)
+      }
     }
   },
-  updated(el: HTMLElement, binding: any) {},
-  beforeUnmount(el: HTMLElement, binding: any) {
-    el.removeEventListener('input', inputFunction)
-    el.removeEventListener('compositionstart', compositionStart)
-    el.removeEventListener('compositionend', compositionEnd)
+  beforeUnmount(el: HTMLElement) {
+    if (el.inputDom) {
+      el.inputDom.removeEventListener('input', inputFunction)
+      el.inputDom.removeEventListener('compositionstart', compositionStart)
+      el.inputDom.removeEventListener('compositionend', compositionEnd)
+    }
   }
 }

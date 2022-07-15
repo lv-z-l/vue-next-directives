@@ -32,62 +32,62 @@ createApp(App).use(v3Directives)
 ### 按需使用
 
 1. 简单粗暴
-```js
-// loading
-import Loading from 'vue-next-directive/lib/directives/loading/index'
-createApp(App)..directive('loading', Loading)
+  ```js
+  // loading
+  import Loading from 'vue-next-directive/lib/directives/loading/index'
+  createApp(App)..directive('loading', Loading)
 
-// lazy
-import Lazy from 'vue-next-directive/lib/directives/lazy/index'
-createApp(App).use(Lazy, { name: 'lazy' })
+  // lazy
+  import Lazy from 'vue-next-directive/lib/directives/lazy/index'
+  createApp(App).use(Lazy, { name: 'lazy' })
 
-```
+  ```
 
 2. 借助 vite-plugin-importer 插件
 
-- 安装插件
+  - 安装插件
 
-  - npm install vite-plugin-importer -D
+    - npm install vite-plugin-importer -D
 
-  - yarn add vite-plugin-importer -D
+    - yarn add vite-plugin-importer -D
 
-- vite.config.js
+  - vite.config.js
 
-```js
+  ```js
 
-import usePluginImport from 'vite-plugin-importer'
+  import usePluginImport from 'vite-plugin-importer'
 
-export default defineConfig({
-  // ...
-  plugin: [
+  export default defineConfig({
     // ...
-    usePluginImport({
-      libraryName: 'vue-next-directive',
-      customName: (name, file) => `vue-next-directive/lib/directives/${name.toLowerCase()}/index`,
-      style: name => {
-        const needcss = ['loading']
-        const names = name.split('/')
-        const fileName = names[names.length - 2]
-        return needcss.includes(fileName) ? `vue-next-directive/lib/assets/${fileName}.css` : ''
-      }, // 会自动引入组件的css
-      // style: () => '' 不会自动引入组件的css
-    })
+    plugin: [
+      // ...
+      usePluginImport({
+        libraryName: 'vue-next-directive',
+        customName: (name, file) => `vue-next-directive/lib/directives/${name.toLowerCase()}/index`,
+        style: name => {
+          const needcss = ['loading']
+          const names = name.split('/')
+          const fileName = names[names.length - 2]
+          return needcss.includes(fileName) ? `vue-next-directive/lib/assets/${fileName}.css` : ''
+        }, // 会自动引入组件的css
+        // style: () => '' 不会自动引入组件的css
+      })
+      // ...
+    ]
     // ...
-  ]
-  // ...
-})
+  })
 
-```
+  ```
 
-- 然后你就可以这样使用
+  - 然后你就可以这样使用
 
-```js
+  ```js
 
-import { Loading } from 'vue-next-directive'
+  import { Loading } from 'vue-next-directive'
 
-import { Lazy } from 'vue-next-directive'
+  import { Lazy } from 'vue-next-directive'
 
-```
+  ```
 ## 效果
 
 ### loading, lazy
