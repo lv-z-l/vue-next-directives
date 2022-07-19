@@ -8,21 +8,6 @@ export function removeClass(el: HTMLElement, className: string) {
   el.classList.remove(className)
 }
 
-export function jieliu(input: (event: Event) => any, timeout: number): (this: HTMLElement, ev: Event) => any {
-  let flag = true
-  return (event: Event) => {
-    if (!flag) {
-      return
-    }
-    flag = false
-    const timer = setTimeout(() => {
-      input(event)
-      clearTimeout(timer)
-      flag = true
-    }, timeout)
-  }
-}
-
 export function debounce(input: (event: Event) => any, timeout: number): (this: HTMLElement, ev: Event) => any {
   let timer: string | number | NodeJS.Timeout | undefined
   return (event: Event) => {
