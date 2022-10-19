@@ -21,8 +21,8 @@
     "README.en.md"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lv-z-l/vue-next-directives.git"
+    "type": "git",
+    "url": "https://github.com/lv-z-l/vue-next-directives.git"
   },
   "keywords": [
     "vue3指令",

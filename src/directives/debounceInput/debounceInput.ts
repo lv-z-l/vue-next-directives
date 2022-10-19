@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { debounce } from '../../utils/index'
+import { debounce, isFunction } from '../../utils/index'
 function compositionStart(event: CompositionEvent) {
   event.target.composing = true
 }
@@ -11,7 +11,7 @@ function compositionEnd(e: CompositionEvent) {
 
 let inputFunction: (event: Event) => {}
 
-function findInputFromEl(el: HTMLElement): HTMLElement | null {
+function findInput(el: HTMLElement): HTMLElement | null {
   const quene: HTMLElement[] = []
   quene.push(el)
   while (quene.length > 0) {
@@ -28,26 +28,27 @@ function findInputFromEl(el: HTMLElement): HTMLElement | null {
 
 export default {
   mounted(el: HTMLElement, binding: any) {
-    if (binding.value && typeof binding.value === 'function') {
+    const { value, arg } = binding
+    if (value && isFunction(value)) {
       let timeout = 600
-      if (binding.arg && !Number.isNaN(binding.arg)) {
-        timeout = Number(binding.arg)
+      if (arg && !Number.isNaN(arg)) {
+        timeout = Number(arg)
       }
-      inputFunction = debounce(binding.value, timeout)
-      const inputDom = findInputFromEl(el)
-      el.inputDom = inputDom
-      if (inputDom) {
-        inputDom.addEventListener('input', inputFunction)
-        inputDom.addEventListener('compositionstart', compositionStart)
-        inputDom.addEventListener('compositionend', compositionEnd)
+      inputFunction = debounce(value, timeout)
+      const input = findInput(el)
+      el._INPUT = input
+      if (input) {
+        input.addEventListener('input', inputFunction)
+        input.addEventListener('compositionstart', compositionStart)
+        input.addEventListener('compositionend', compositionEnd)
       }
     }
   },
   beforeUnmount(el: HTMLElement) {
-    if (el.inputDom) {
-      el.inputDom.removeEventListener('input', inputFunction)
-      el.inputDom.removeEventListener('compositionstart', compositionStart)
-      el.inputDom.removeEventListener('compositionend', compositionEnd)
+    if (el._INPUT) {
+      el._INPUT.removeEventListener('input', inputFunction)
+      el._INPUT.removeEventListener('compositionstart', compositionStart)
+      el._INPUT.removeEventListener('compositionend', compositionEnd)
     }
   }
 }

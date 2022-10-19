@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import inputs from './directives/debounceInput/debounceInput'
+import debounceInput from './directives/debounceInput/debounceInput'
 
-createApp(App).directive('inputs', inputs).mount('#app')
+createApp(App).directive('debounceInput', debounceInput).mount('#app')

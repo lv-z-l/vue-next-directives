@@ -26,3 +26,7 @@ export function debounce(input: (event: Event) => any, timeout: number): (this: 
     }, timeout)
   }
 }
+
+export function isFunction(param: any): boolean {
+  return Object.prototype.toString.call(param) === '[object Function]'
+}
